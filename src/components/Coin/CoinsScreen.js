@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'; 
 import { View, Text, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
 import { Http } from '../../libs/http';
+import { Colors } from '../../res/colors';
 import CoinsItem from './CoinsItem';
 
 const CoinsScreen = ({ navigation }) => {
@@ -36,7 +37,7 @@ const CoinsScreen = ({ navigation }) => {
         !loading &&
         <FlatList data={coins}
                   renderItem={ ({item: coin}) => 
-                    <CoinsItem {...coin}/>
+                    <CoinsItem coin={coin}/>
                   } />
       }
     </View>
@@ -47,6 +48,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    backgroundColor: Colors.charade
   },
   titleText: {
     color: '#fff',
