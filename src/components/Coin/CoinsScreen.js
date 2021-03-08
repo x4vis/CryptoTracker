@@ -9,8 +9,8 @@ const CoinsScreen = ({ navigation }) => {
   const [coins, setCoins] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const handlePress = () => {
-    navigation.navigate('CoinDetail');
+  const handlePress = (coin) => {
+    navigation.navigate('CoinDetail', { coin });
   }
 
   useEffect(() => {
@@ -37,7 +37,8 @@ const CoinsScreen = ({ navigation }) => {
         !loading &&
         <FlatList data={coins}
                   renderItem={ ({item: coin}) => 
-                    <CoinsItem coin={coin}/>
+                    <CoinsItem coin={coin} 
+                               onPress={() => handlePress(coin)}/>
                   } />
       }
     </View>
