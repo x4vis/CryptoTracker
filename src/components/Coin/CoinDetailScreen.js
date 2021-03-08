@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, SectionList } from 'react-native';
 import { Colors } from '../../res/colors';
 
 const CoinDetailScreen = ({ route, navigation }) => {
@@ -15,14 +15,55 @@ const CoinDetailScreen = ({ route, navigation }) => {
     if (nameId) {
       return `https://c1.coinlore.com/img/25x25/${nameId}.png`;
     }
+  };
+
+  const getSections = () => {
+    const sections = [
+      {
+        title: 'Market cap',
+        data: [coin.market_cap_usd],
+      },
+      {
+        title: 'Volume 24h',
+        data: [coin.volume24],
+      },
+      {
+        title: 'Change 24h',
+        data: [coin.percent_change_24h],
+      }
+    ];
+
+    return sections;
   }
 
   return (
     <View style={styles.container}>
       <View style={styles.subHeader}>
-        <Image style={styles.iconImg} source={{ uri: getSymbolIcon() }}/>
+        <Image 
+          style={styles.iconImg} 
+          source={{ uri: getSymbolIcon() }} />
         <Text style={styles.titleText}>{coin.name}</Text>
       </View>
+
+      <SectionList 
+        sections={getSections()}
+        keyExtractor={ (item) => item }
+        renderItem={ 
+        ({item}) => (
+          <View style={styles.sectionItem}>
+            <Text style={styles.itemText}>
+              {item}
+            </Text>
+          </View>
+        )}
+        renderSectionHeader={ 
+        ({section}) => (
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionText}>
+              {section.title}
+            </Text>
+          </View>
+        )} />
     </View>
   )
 }
@@ -47,6 +88,22 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontWeight: 'bold',
     fontSize: 18,
+  },
+  sectionHeader: {
+    backgroundColor: 'rgba(0,0,0, 0.2)',
+    padding: 8,
+  },
+  sectionItem: {
+    padding: 8,
+  },
+  itemText: {
+    color: Colors.white,
+    fontSize: 14,
+  },
+  sectionText: {
+    color: Colors.white,
+    fontSize: 14,
+    fontWeight: 'bold',
   }
 });
 

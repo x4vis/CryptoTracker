@@ -35,11 +35,13 @@ const CoinsScreen = ({ navigation }) => {
 
       {
         !loading &&
-        <FlatList data={coins}
-                  renderItem={ ({item: coin}) => 
-                    <CoinsItem coin={coin} 
-                               onPress={() => handlePress(coin)}/>
-                  } />
+        <FlatList 
+          data={coins}
+          keyExtractor={ (item) => item.id}
+          renderItem={ ({item: coin}) => 
+            <CoinsItem coin={coin} 
+                        onPress={() => handlePress(coin)}/>
+          } />
       }
     </View>
   )
