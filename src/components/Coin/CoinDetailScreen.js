@@ -1,12 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet, SectionList } from 'react-native';
+import { Http } from '../../libs/http';
 import { Colors } from '../../res/colors';
 
 const CoinDetailScreen = ({ route, navigation }) => {
   const { coin } = route.params;
+  const [markets, setMarkets] = useState([]);
 
   useEffect(() => {
-    navigation.setOptions({ title: coin.symbol })
+    navigation.setOptions({ title: coin.symbol });
+
+    const getMarkets = async () => {
+      const markets = await Http.API.get(`https://api.coinlore.net/api/coin/markets/?id=${coin.id}`);
+      setMarkets(markets);
+    }
+
+    getMarkets();
   }, [])
 
   const getSymbolIcon = () => {
