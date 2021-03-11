@@ -76,6 +76,7 @@ const CoinDetailScreen = ({ route, navigation }) => {
           </View>
         )} />
 
+        <Text style={styles.marketTitle}>Markets</Text>
         <FlatList
           style={styles.list}
           horizontal={true}
@@ -115,6 +116,7 @@ const styles = StyleSheet.create({
   },
   list: {
     maxHeight: 100,
+    paddingLeft: 16,
   },
   sectionHeader: {
     backgroundColor: 'rgba(0,0,0, 0.2)',
@@ -130,6 +132,13 @@ const styles = StyleSheet.create({
   sectionText: {
     color: Colors.white,
     fontSize: 14,
+    fontWeight: 'bold',
+  },
+  marketTitle: {
+    color: Colors.white,
+    fontSize: 16,
+    marginBottom: 16,
+    marginLeft: 16,
     fontWeight: 'bold',
   }
 });
