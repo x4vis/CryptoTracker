@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, StyleSheet, SectionList } from 'react-native';
+import { View, Text, Image, StyleSheet, FlatList, SectionList } from 'react-native';
 import { Http } from '../../libs/http';
 import { Colors } from '../../res/colors';
+import CoinMarketItem from './CoinMarketItem';
 
 const CoinDetailScreen = ({ route, navigation }) => {
   const { coin } = route.params;
@@ -55,6 +56,7 @@ const CoinDetailScreen = ({ route, navigation }) => {
       </View>
 
       <SectionList 
+        style={styles.section}
         sections={getSections()}
         keyExtractor={ (item) => item }
         renderItem={ 
@@ -73,6 +75,16 @@ const CoinDetailScreen = ({ route, navigation }) => {
             </Text>
           </View>
         )} />
+
+        <FlatList
+          style={styles.list}
+          horizontal={true}
+          data={markets}
+          keyExtractor={ (item) => `${item.base}-${item.name}-${item.quote}`}
+          renderItem={ 
+            ({item}) => <CoinMarketItem item={item}/>
+          }
+           />
     </View>
   )
 }
@@ -97,6 +109,12 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontWeight: 'bold',
     fontSize: 18,
+  },
+  section: {
+    maxHeight: 220,
+  },
+  list: {
+    maxHeight: 100,
   },
   sectionHeader: {
     backgroundColor: 'rgba(0,0,0, 0.2)',

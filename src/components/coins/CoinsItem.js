@@ -1,7 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, Pressable } from 'react-native';
-import { formatNumber } from '../../libs/formatNumber';
+import { formatNumber, formatNumberType } from '../../libs/formatNumber';
 import { Colors } from '../../res/colors';
+
+const {USA: currency} = formatNumberType.currency;
+const {USA: locale} = formatNumberType.locale;
 
 const CoinsItem = ({ coin, onPress }) => {
 
@@ -20,7 +23,7 @@ const CoinsItem = ({ coin, onPress }) => {
         <Text style={styles.symbolText}>{coin.symbol}</Text>
         <Text style={styles.nameText}>{coin.name}</Text>
         <Text style={styles.priceText}>
-          {formatNumber('USD', 'en-US').format(coin.price_usd)}
+          {formatNumber(currency, locale).format(coin.price_usd)}
         </Text>
       </View>
 
