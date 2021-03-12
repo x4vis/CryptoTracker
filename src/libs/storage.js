@@ -29,10 +29,6 @@ export const Storage = {
   },
 
   multiGet: async (key) => {
-    if(!Storage.isKeyString(key)) {
-      return;
-    }
-
     try {
       return await AsyncStorage.multiGet(key);
     } catch (error) {

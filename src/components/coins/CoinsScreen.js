@@ -38,7 +38,6 @@ const CoinsScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <CoinSearch onChange={handleSearch}/>
       {
         loading && 
         <ActivityIndicator 
@@ -48,13 +47,17 @@ const CoinsScreen = ({ navigation }) => {
 
       {
         !loading &&
-        <FlatList 
-          data={coins}
-          keyExtractor={ (item) => item.id}
-          renderItem={ ({item: coin}) => 
-            <CoinsItem coin={coin} 
-                        onPress={() => handlePress(coin)}/>
-          } />
+        <View style={styles.container}>
+          <CoinSearch onChange={handleSearch}/>
+          <FlatList 
+            data={coins}
+            keyExtractor={ (item) => item.id}
+            renderItem={ ({item: coin}) => 
+              <CoinsItem 
+                coin={coin} 
+                onPress={() => handlePress(coin)}/>
+            } />
+        </View>
       }
     </View>
   )

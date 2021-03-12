@@ -16,15 +16,15 @@ const CoinSearch = ({onChange}) => {
   return (
     <View>
       <TextInput
-      style={[
-        styles.textInput,
-        Platform.OS === 'ios' ? 
-          styles.textInputIOS : styles.textInputAndroid
-      ]}
-      onChangeText={handleText}
-      value={query}
-      placeholder='Search coin'
-      placeholderTextColor={Colors.white} />
+        style={[
+          styles.textInput,
+          Platform.OS === 'ios' ? 
+            styles.textInputIOS : styles.textInputAndroid
+        ]}
+        onChangeText={handleText}
+        value={query}
+        placeholder='Search coin'
+        placeholderTextColor={Colors.white} />
     </View>
   )
 }
