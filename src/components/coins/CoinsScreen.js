@@ -2,35 +2,48 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
 import { Http } from '../../libs/http';
 import { Colors } from '../../res/colors';
+import CoinSearch from './CoinSearch';
 import CoinsItem from './CoinsItem';
 
 const CoinsScreen = ({ navigation }) => {
 
   const [coins, setCoins] = useState([]);
+  const [allCoins, setAllCoins] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const handlePress = (coin) => {
     navigation.navigate('CoinDetail', { coin });
   }
 
+  const handleSearch = (query) => {
+    const coinsFiltered = coins.filter(coin => {
+      return coin.name.toLowerCase().includes(query.toLowerCase()) ||
+        coin.symbol.toLowerCase().includes(query.toLowerCase());
+    });
+    setCoins(coinsFiltered);
+  }
+
   useEffect(() => {
     setLoading(true);
 
-    const getData = async () => {
+    const getCoins = async () => {
       const { data: coins } = await Http.API.get('https://api.coinlore.net/api/tickers/');
       setCoins(coins);
+      setAllCoins(coins);
       setLoading(false);
     };
 
-    getData();
+    getCoins();
   }, [])
 
   return (
     <View style={styles.container}>
+      <CoinSearch onChange={handleSearch}/>
       {
         loading && 
-        <ActivityIndicator color="#fff" 
-                           size="large"/>
+        <ActivityIndicator 
+          color="#fff" 
+          size="large"/>
       }
 
       {
