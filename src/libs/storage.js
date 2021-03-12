@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const Storage = {
   store: async (key, value) => {
-    if(this.isKeyString(key)) {
+    if(!Storage.isKeyString(key)) {
       return false;
     }
 
@@ -16,7 +16,7 @@ export const Storage = {
   },
 
   get: async (key) => {
-    if(this.isKeyString(key)) {
+    if(!Storage.isKeyString(key)) {
       return;
     }
 
@@ -29,7 +29,7 @@ export const Storage = {
   },
 
   multiGet: async (key) => {
-    if(this.isKeyString(key)) {
+    if(!Storage.isKeyString(key)) {
       return;
     }
 
@@ -51,7 +51,7 @@ export const Storage = {
   },
 
   remove: async (key) => {
-    if(this.isKeyString(key)) {
+    if(!Storage.isKeyString(key)) {
       return false;
     }
 
@@ -60,6 +60,7 @@ export const Storage = {
       return true;
     } catch (error) {
       console.log('storage remove error :>> ', error);
+      return false;
     }
   },
 

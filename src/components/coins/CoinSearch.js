@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Platform } from 'react-native';
+import { StyleSheet, View, TextInput, Platform } from 'react-native';
 import { Colors } from '../../res/colors';
 
 const CoinSearch = ({onChange}) => {
   const [query, setQuery] = useState('');
 
-  const handleText = () => {
-    setQuery(query);
+  const handleText = (value) => {
+    setQuery(value);
 
     if (onChange) {
       onChange(query);
