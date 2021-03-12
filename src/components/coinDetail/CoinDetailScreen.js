@@ -12,7 +12,7 @@ const CoinDetailScreen = ({ route, navigation }) => {
     navigation.setOptions({ title: coin.symbol });
 
     const getMarkets = async () => {
-      const markets = await Http.API.get(`https://api.coinlore.net/api/coin/markets/?id=${coin.id}`);
+      const markets = await Http.get(`https://api.coinlore.net/api/coin/markets/?id=${coin.id}`);
       setMarkets(markets);
     }
 

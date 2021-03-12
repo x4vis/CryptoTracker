@@ -1,8 +1,7 @@
-export class Http  {
-  static API = new Http();
-  URL = 'https://api.coinlore.net/api/tickers/';
+export const Http = {
+  URL: 'https://api.coinlore.net/api/tickers/',
 
-  get = async(url) => {
+  get: async(url) => {
     try {
       let req = await fetch(url);
       let json = await req.json();
@@ -11,9 +10,9 @@ export class Http  {
       console.log('http get error :>> ', error);
       throw Error(error);
     }
-  };
+  },
 
-  post = async(url, body) => {
+  post: async(url, body) => {
     try {
       let req = fetch(url, {
         method: 'POST',
@@ -26,9 +25,9 @@ export class Http  {
       console.log('http post error :>> ', error);
       throw Error(error);
     }
-  };
+  },
 
-  put = async(url, body) => {
+  put: async(url, body) => {
     try {
       let req = await fetch(url, {
         method: 'PUT',
@@ -41,9 +40,9 @@ export class Http  {
       console.log('http put error :>> ', error);
       throw Error(error);
     }
-  };
+  },
 
-  remove = async(url) => {
+  remove: async(url) => {
     try {
       let req = await fetch(url, {
         method: 'DELETE'
@@ -55,5 +54,5 @@ export class Http  {
       console.log('http delete error :>> ', error);
       throw Error(error);
     }
-  };
+  }
 }

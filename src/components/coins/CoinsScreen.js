@@ -27,7 +27,7 @@ const CoinsScreen = ({ navigation }) => {
     setLoading(true);
 
     const getCoins = async () => {
-      const { data: coins } = await Http.API.get('https://api.coinlore.net/api/tickers/');
+      const { data: coins } = await Http.get('https://api.coinlore.net/api/tickers/');
       setCoins(coins);
       setAllCoins(coins);
       setLoading(false);
