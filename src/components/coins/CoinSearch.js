@@ -5,7 +5,7 @@ import { Colors } from '../../res/colors';
 const CoinSearch = ({onChange}) => {
   const [query, setQuery] = useState('');
 
-  const handleText = (query) => {
+  const handleText = () => {
     setQuery(query);
 
     if (onChange) {
