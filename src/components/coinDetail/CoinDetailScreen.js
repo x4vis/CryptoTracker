@@ -6,7 +6,8 @@ import {
   StyleSheet, 
   FlatList, 
   SectionList, 
-  Pressable 
+  Pressable,
+  Alert,
 } from 'react-native';
 import { Http } from '../../libs/http';
 import { Storage } from '../../libs/storage';
@@ -17,7 +18,7 @@ const CoinDetailScreen = ({ route, navigation }) => {
   const { coin } = route.params;
   const key = `favorite-${coin.id}`;
   const mounted = useRef(null);
-  
+
   const [markets, setMarkets] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
 
@@ -80,8 +81,23 @@ const CoinDetailScreen = ({ route, navigation }) => {
 
   const handleFavorite = async () => {
     if (isFavorite) {
-      const remove = await Storage.remove(key);
-      remove && setIsFavorite(false);
+      Alert.alert(
+        'Remove favorite',
+        'Are you sure',
+        [
+          {
+            text: 'Cancel'
+          },
+          {
+            text: 'Remove',
+            onPress: async () => {
+              const remove = await Storage.remove(key);
+              remove && setIsFavorite(false);
+            },
+            style: 'destructive'
+          }
+        ]
+      )
     }
     else {
       const stored = await Storage.store(key, coin);
