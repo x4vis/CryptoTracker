@@ -1,26 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { Storage } from '../../libs/storage';
 import { Colors } from '../../res/colors';
+import CoinsItem from '../coins/CoinsItem';
 
-const FavoritesScreen = () => {
-
+const FavoritesScreen = ({ navigation }) => {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-
     const getFavorites = async () => {
-      const keys = await Storage.getAllKeys();
-      const allFavorites = await Storage.multiGet(keys);
+      const allKeys = await Storage.getAllKeys();
+      const keys = allKeys.filter(key => key.includes('favorite-'));
+      const favs = await Storage.multiGet(keys);
+      const allFavorites = favs.map((fav) => JSON.parse(fav[1]));
       setFavorites(allFavorites);
     }
-
     getFavorites();
-    
+
+    navigation.addListener('focus', getFavorites);
+
     return () => {
-      
+      navigation.removeListener('focus', getFavorites);
     }
-  }, [])
+  }, []);
+
+  const handlePress = (coin) => {
+    navigation.navigate('CoinDetail', { coin });
+  };
 
   return (
     <View style={styles.container}>
@@ -30,8 +36,15 @@ const FavoritesScreen = () => {
       }
 
       {
-        favorites.length !== 0 &&
-        <Text style={styles.text}>Ya hay</Text>
+        favorites.length > 0 &&
+        <FlatList
+          data={favorites}
+          keyExtractor={ (item) => item.id}
+          renderItem={ ({item: coin}) =>
+            <CoinsItem 
+              coin={coin}
+              onPress={() => handlePress(coin)} />
+          } />
       }
     </View>
   )
