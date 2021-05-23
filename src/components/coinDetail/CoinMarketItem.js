@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { formatNumber, formatNumberType } from '../../libs/formatNumber';
-import { Colors } from '../../res/colors';
+import {StyleSheet, Text, View} from 'react-native';
+import {formatNumber, formatNumberType} from '../../libs/formatNumber';
+import {Colors} from '../../res/colors';
 
 const {USA: currency} = formatNumberType.currency;
 const {USA: locale} = formatNumberType.locale;
@@ -10,10 +10,12 @@ const CoinMarketItem = ({item}) => {
   return (
     <View style={styles.contenedor}>
       <Text style={styles.nameText}>{item.name}</Text>
-      <Text style={styles.priceText}>{ formatNumber(currency, locale).format(item.price_usd)}</Text>
+      <Text style={styles.priceText}>
+        {formatNumber({currency, locale}).format(item.price_usd)}
+      </Text>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   contenedor: {
@@ -33,5 +35,5 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CoinMarketItem
+export default CoinMarketItem;
 

@@ -1,21 +1,19 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, Pressable } from 'react-native';
-import { formatNumber, formatNumberType } from '../../libs/formatNumber';
-import { Colors } from '../../res/colors';
+import {View, Text, StyleSheet, Image, Pressable} from 'react-native';
+import {formatNumber, formatNumberType} from '../../libs/formatNumber';
+import {Colors} from '../../res/colors';
 
 const {USA: currency} = formatNumberType.currency;
 const {USA: locale} = formatNumberType.locale;
 
-const CoinsItem = ({ coin, onPress }) => {
-
+const CoinsItem = ({coin, onPress}) => {
   const getImgArrow = () => {
-    if(coin.percent_change_1h > 0) {
+    if (coin.percent_change_1h > 0) {
       return require('../../assets/arrow_up.png');
-    }
-    else {
+    } else {
       return require('../../assets/arrow_down.png');
     }
-  }
+  };
 
   return (
     <Pressable onPress={onPress} style={styles.container}>
@@ -23,7 +21,7 @@ const CoinsItem = ({ coin, onPress }) => {
         <Text style={styles.symbolText}>{coin.symbol}</Text>
         <Text style={styles.nameText}>{coin.name}</Text>
         <Text style={styles.priceText}>
-          {formatNumber(currency, locale).format(coin.price_usd)}
+          {formatNumber({currency, locale}).format(coin.price_usd)}
         </Text>
       </View>
 
@@ -32,25 +30,25 @@ const CoinsItem = ({ coin, onPress }) => {
         <Image style={styles.imgIcon} source={getImgArrow()} />
       </View>
     </Pressable>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     padding: 16,
     borderBottomColor: Colors.zircon,
-    borderBottomWidth: .8,
+    borderBottomWidth: 0.8,
   },
   row: {
-    flexDirection: "row",
+    flexDirection: 'row',
     alignItems: 'center',
   },
   symbolText: {
     color: Colors.white,
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginRight: 16,
   },
   nameText: {
@@ -69,7 +67,7 @@ const styles = StyleSheet.create({
   imgIcon: {
     width: 22,
     height: 22,
-  }
-})
+  },
+});
 
 export default CoinsItem;
